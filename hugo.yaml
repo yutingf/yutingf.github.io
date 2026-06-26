@@ -63,6 +63,3 @@ menu:
     - name: People
       url: /authors/
       weight: 50
-    - name: Contact
-      url: /contact/
-      weight: 70
