@@ -26,13 +26,13 @@
     {{- with .Params.links }}
     <div class="gk-cite__links" style="margin:1rem 0;">
       {{- range . }}
-        <a class="gk-btn" href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if hasPrefix .url "http" }} rel="noopener"{{ end }}>{{ .name }}</a>
+        <a class="gk-btn" href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}" target="_blank" rel="noopener">{{ .name }}</a>
       {{- end }}
     </div>
     {{- end }}
 
     {{- with .Params.dataverse_url }}
-    <p class="gk-chip" style="display:inline-block;">Dataset: <a href="{{ . }}" rel="noopener">{{ $.Params.dataverse_name | default "Replication data on Harvard Dataverse" }}</a></p>
+    <p class="gk-chip" style="display:inline-block;">Dataset: <a href="{{ . }}" target="_blank" rel="noopener">{{ $.Params.dataverse_name | default "Replication data on Harvard Dataverse" }}</a></p>
     {{- end }}
 
     {{- with .Params.abstract }}

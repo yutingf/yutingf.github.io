@@ -18,7 +18,7 @@
     {{- range $names }}
       {{- $info := index $links . -}}
       <li style="padding:0.3rem 0; break-inside: avoid;">
-        {{- if $info }}<a href="{{ $info.url }}" rel="noopener">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+        {{- if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
       </li>
     {{- end }}
   </ul>
