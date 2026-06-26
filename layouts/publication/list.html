@@ -91,7 +91,9 @@
               {{- range $ai, $a := . -}}
                 {{- if $ai }}, {{ end -}}
                 {{- $info := index $coauthors $a -}}
-                {{- if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>{{ else }}{{ $a }}{{ end -}}
+                {{- if eq $a "Rachel Yuting Fan" }}<a href="{{ "" | relURL }}">{{ $a }}</a>
+                {{- else if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>
+                {{- else }}{{ $a }}{{ end -}}
               {{- end -}}
             </div>{{ end }}
             {{- with $p.Params.publication }}<div class="gk-cite__meta gk-cite__venue">{{ . }}</div>{{ end }}

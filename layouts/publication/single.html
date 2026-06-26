@@ -17,7 +17,9 @@
       {{- range $i, $a := . -}}
         {{- if $i }}, {{ end -}}
         {{- $info := index $links $a -}}
-        {{- if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>{{ else }}{{ $a }}{{ end -}}
+        {{- if eq $a "Rachel Yuting Fan" }}<a href="{{ "" | relURL }}">{{ $a }}</a>
+        {{- else if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>
+        {{- else }}{{ $a }}{{ end -}}
       {{- end -}}
     </p>
     {{- end }}
