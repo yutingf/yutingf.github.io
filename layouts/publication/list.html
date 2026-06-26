@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{- $coauthors := index site.Data "coauthors" -}}
 {{- $areas := (index site.Data "research_areas").areas -}}
 {{- $items := where site.RegularPages "Section" "in" (slice "publication" "talk" "software") -}}
 {{- $items = sort $items "Date" "desc" -}}
@@ -86,7 +87,13 @@
                    data-idx="{{ $i }}">
             <span class="gk-cite__meta">{{ $e.year }}</span>
             <span class="gk-cite__title"><a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a></span>
-            {{- with ($p.Params.authors | default slice) }}<div class="gk-cite__meta">{{ delimit . ", " }}</div>{{ end }}
+            {{- with ($p.Params.authors | default slice) }}<div class="gk-cite__meta">
+              {{- range $ai, $a := . -}}
+                {{- if $ai }}, {{ end -}}
+                {{- $info := index $coauthors $a -}}
+                {{- if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>{{ else }}{{ $a }}{{ end -}}
+              {{- end -}}
+            </div>{{ end }}
             {{- with $p.Params.publication }}<div class="gk-cite__meta gk-cite__venue">{{ . }}</div>{{ end }}
           </article>
         {{- end }}
