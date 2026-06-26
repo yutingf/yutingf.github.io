@@ -16,6 +16,9 @@
     <div class="gk-hero__body">
       <h1 class="gk-hero__name">{{ site.Title }}</h1>
       <p class="gk-hero__intro">{{ .Params.intro }}</p>
+      {{- with .Content }}
+      <div class="gk-hero__about prose">{{ . }}</div>
+      {{- end }}
       <div class="gk-hero__actions">
         <a class="gk-btn" href="{{ "publication/" | relURL }}">Writings</a>
         {{- with site.Params.scholar_url }}<a class="gk-btn" href="{{ . }}" rel="noopener">Google Scholar</a>{{ end }}
@@ -23,12 +26,6 @@
       </div>
     </div>
   </section>
-
-  {{- with .Content }}
-  <section class="gk-about prose" aria-label="Background">
-    {{ . }}
-  </section>
-  {{- end }}
 
   <section aria-labelledby="research-areas">
     <h2 id="research-areas">Research Areas</h2>

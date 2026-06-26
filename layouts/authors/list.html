@@ -14,7 +14,7 @@
   <h1>{{ .Title | default "People" }}</h1>
   <div class="prose">{{ .Content }}</div>
 
-  <ul class="pub-list" style="columns: 2; column-gap: 2rem; list-style: none; padding: 0;">
+  <ul class="pub-list" style="columns: 3; column-gap: 2rem; list-style: none; padding: 0;">
     {{- range $names }}
       {{- $info := index $links . -}}
       <li style="padding:0.3rem 0; break-inside: avoid;">

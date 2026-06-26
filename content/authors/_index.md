@@ -2,4 +2,4 @@
 title: "People"
 ---
 
-Rachel's research is collaborative. These are the co-authors she has worked with across her published and ongoing work.
+These are the co-authors she has worked with across her published and ongoing work.
