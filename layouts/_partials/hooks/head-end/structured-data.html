@@ -1,0 +1,39 @@
+{{- /* JSON-LD structured data: Person on the homepage, ScholarlyArticle on publication pages.
+       Inside application/ld+json, Hugo auto-quotes+escapes each {{ value }} (JS context),
+       so output values BARE (no jsonify) and build arrays/objects with range. */ -}}
+
+{{- if .IsHome -}}
+  {{- $sameAs := slice -}}
+  {{- with site.Params.scholar_url }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+  {{- with site.Params.orcid_url }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+  {{- with site.Params.repec_url }}{{ $sameAs = $sameAs | append . }}{{ end -}}
+  {{- $topics := slice "Macroeconomics" "Technology adoption" "Development economics" "Artificial intelligence" -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rachel Yuting Fan",
+  "url": {{ site.BaseURL }},
+  "jobTitle": "Economist",
+  "knowsAbout": [{{ range $i, $k := $topics }}{{ if $i }}, {{ end }}{{ $k }}{{ end }}],
+  "sameAs": [{{ range $i, $u := $sameAs }}{{ if $i }}, {{ end }}{{ $u }}{{ end }}]
+}
+</script>
+{{- end -}}
+
+{{- if and .IsPage (eq .Section "publication") -}}
+  {{- $authors := .Params.authors | default slice -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": {{ .Title }},
+  "name": {{ .Title }},
+  "datePublished": {{ .Date.Format "2006-01-02" }},
+  "url": {{ .Permalink }},
+  "author": [{{ range $i, $a := $authors }}{{ if $i }}, {{ end }}{"@type": "Person", "name": {{ $a }}}{{ end }}]{{ with .Params.publication }},
+  "isPartOf": {{ . }}{{ end }}{{ with .Params.abstract }},
+  "abstract": {{ . }}{{ end }}
+}
+</script>
+{{- end -}}

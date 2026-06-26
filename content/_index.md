@@ -1,5 +1,7 @@
 ---
 title: "Rachel Yuting Fan"
+seo:
+  title: "Rachel Yuting Fan | Economist"
 intro: "Rachel Yuting Fan is an economist working on macroeconomics, technology adoption, and development. Her recent research measures how countries and occupations adopt artificial intelligence, and how its gains are distributed. Earlier work covers sovereign debt and growth after calamities, telecom liberalization, the middle-income trap, and commodity markets."
 ---
 
