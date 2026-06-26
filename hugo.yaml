@@ -1,0 +1,71 @@
+baseURL: "https://yutingf.github.io/"
+title: "Rachel Yuting Fan"
+languageCode: en-us
+enableRobotsTXT: true
+enableEmoji: true
+ignoreLogs: ['sections-none-/', 'warning-goldmark-raw-html']
+
+module:
+  imports:
+    - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind
+
+outputs:
+  home: [HTML, RSS, JSON]
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    noClasses: false
+
+params:
+  # Visitor analytics — paste your Cloudflare Web Analytics beacon token here once the site is live.
+  cloudflare_analytics_token: ""
+  scholar_url: "https://scholar.google.com/citations?hl=en&user=DFOTKsoAAAAJ"
+  email: "yutingf@gmail.com"
+  appearance:
+    theme_day: minimal
+    theme_night: minimal
+    color_mode: light
+    font: native
+    font_size: L
+  header:
+    navbar:
+      enable: true
+      show_search: true
+      show_translations: false
+      logo:
+        text: "Rachel Yuting Fan"
+  features:
+    search:
+      enable: true
+      provider: pagefind
+  extensions:
+    css:
+      - css/custom.css
+
+taxonomies:
+  tag: tags
+  category: categories
+  publication_type: publication_types
+
+permalinks:
+  publication: /publication/:contentbasename/
+  talk: /talk/:contentbasename/
+  software: /software/:contentbasename/
+
+menu:
+  main:
+    - name: Writings
+      url: /publication/
+      weight: 20
+    - name: Research Areas
+      url: "/#research-areas"
+      weight: 30
+    - name: People
+      url: /authors/
+      weight: 50
+    - name: Contact
+      url: /contact/
+      weight: 70

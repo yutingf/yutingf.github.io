@@ -1,0 +1,19 @@
+{{- /* Custom dark footer with site navigation + single build credit. */ -}}
+<footer class="gk-footer" id="site-footer">
+  <div class="gk-footer__inner">
+    <nav class="gk-footer__nav" aria-label="Footer navigation">
+      {{- range site.Menus.main }}
+        <a href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    <div class="gk-footer__credit">
+      &copy; {{ now.Year }} {{ site.Title }}. &nbsp;
+      Created using <a href="https://garyking.org/mysite">GaryKing.org/mysite</a>
+    </div>
+  </div>
+</footer>
+
+{{- /* Cloudflare Web Analytics — inert until a token is set in hugo.yaml. */ -}}
+{{- with site.Params.cloudflare_analytics_token }}
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ . }}"}'></script>
+{{- end }}

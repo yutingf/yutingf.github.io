@@ -1,0 +1,18 @@
+{{ define "main" }}
+<main id="main-content" class="gk-wrap">
+  <nav class="gk-crumbs" aria-label="Breadcrumb"><a href="{{ "" | relURL }}">Home</a> / {{ .Title }}</nav>
+  <h1>{{ .Title }}</h1>
+  {{- with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+
+  <div class="pub-list" style="margin-top:1rem;">
+    {{- range sort .Pages "Date" "desc" }}
+      <article class="pub-item">
+        <span class="gk-cite__meta">{{ .Date.Format "2006" }}</span>
+        <span class="gk-cite__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
+        {{- with (.Params.authors | default slice) }}<div class="gk-cite__meta">{{ delimit . ", " }}</div>{{ end }}
+        {{- with .Params.publication }}<div class="gk-cite__meta gk-cite__venue">{{ . }}</div>{{ end }}
+      </article>
+    {{- end }}
+  </div>
+</main>
+{{ end }}

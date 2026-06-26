@@ -1,0 +1,65 @@
+{{ define "main" }}
+{{- $hasPhoto := fileExists "static/images/profile.jpg" -}}
+{{- $areas := (index site.Data "research_areas").areas -}}
+{{- $pubs := where site.RegularPages "Section" "in" (slice "publication" "talk" "software") -}}
+
+<main id="main-content" class="gk-wrap">
+
+  <section class="gk-hero" aria-label="Introduction">
+    <div class="gk-hero__photo">
+      {{- if $hasPhoto }}
+        <img src="{{ "images/profile.jpg" | relURL }}" alt="Portrait of Rachel Yuting Fan" width="200" height="200">
+      {{- else }}
+        <div class="gk-monogram" aria-hidden="true">RF</div>
+      {{- end }}
+    </div>
+    <div class="gk-hero__body">
+      <h1 class="gk-hero__name">{{ site.Title }}</h1>
+      <p class="gk-hero__intro">{{ .Params.intro }}</p>
+      <div class="gk-hero__actions">
+        <a class="gk-btn" href="{{ "publication/" | relURL }}">Writings</a>
+        {{- with site.Params.scholar_url }}<a class="gk-btn" href="{{ . }}" rel="noopener">Google Scholar</a>{{ end }}
+        {{- with site.Params.email }}<a class="gk-btn" href="mailto:{{ . }}">Email</a>{{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{- with .Content }}
+  <section class="gk-about prose" aria-label="Background">
+    {{ . }}
+  </section>
+  {{- end }}
+
+  <section aria-labelledby="research-areas">
+    <h2 id="research-areas">Research Areas</h2>
+    <div class="gk-areas">
+      {{- range $area := $areas }}
+        {{- $matched := slice -}}
+        {{- range $p := $pubs }}
+          {{- $ptags := apply ($p.Params.tags | default slice) "lower" "." -}}
+          {{- range $area.tags }}{{ if in $ptags . }}{{ $matched = $matched | append $p }}{{ end }}{{ end -}}
+        {{- end -}}
+        {{- $matched = uniq $matched -}}
+        <details class="gk-area">
+          <summary>{{ $area.name }}</summary>
+          <div class="gk-area__body">
+            {{- with $area.blurb }}<p class="gk-cite__meta">{{ . }}</p>{{ end }}
+            {{- if gt (len $matched) 0 }}
+              {{- range first 5 (sort $matched "Date" "desc") }}
+                <div class="gk-cite">
+                  <span class="gk-cite__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span>
+                  {{ with .Date }}<span class="gk-cite__meta">({{ .Format "2006" }})</span>{{ end }}
+                </div>
+              {{- end }}
+              <p style="margin-top:0.6rem"><a class="gk-link" href="{{ "publication/" | relURL }}#area-{{ $area.key }}">View all &rarr;</a></p>
+            {{- else }}
+              <p class="gk-cite__meta">Work in this area is being added.</p>
+            {{- end }}
+          </div>
+        </details>
+      {{- end }}
+    </div>
+  </section>
+
+</main>
+{{ end }}

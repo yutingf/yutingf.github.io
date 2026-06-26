@@ -1,0 +1,28 @@
+{
+  "areas": [
+    {
+      "name": "AI, Technology & Innovation",
+      "key": "tech",
+      "blurb": "How economies adopt new technology, from AI to telecom, and what that means for productivity, labor, and growth.",
+      "tags": ["artificial intelligence", "ai adoption", "technology adoption", "innovation", "5g", "telecom", "digital", "automation"]
+    },
+    {
+      "name": "Macroeconomics & Growth",
+      "key": "macro",
+      "blurb": "Growth, debt, and macroeconomic resilience in the face of shocks.",
+      "tags": ["growth", "debt", "macroeconomics", "business cycles", "fiscal policy", "forecasting", "calamities"]
+    },
+    {
+      "name": "Development Economics",
+      "key": "development",
+      "blurb": "Structural transformation, trade, and competition, with a focus on the Middle East and North Africa.",
+      "tags": ["development", "mena", "middle east and north africa", "trade", "competition", "inequality", "labor"]
+    },
+    {
+      "name": "Energy & Commodities",
+      "key": "energy",
+      "blurb": "Oil and commodity markets, energy transition, and subsidy reform.",
+      "tags": ["energy", "oil", "commodities", "climate", "subsidies", "natural gas"]
+    }
+  ]
+}

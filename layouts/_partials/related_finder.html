@@ -1,0 +1,75 @@
+{{- /* =====================================================================
+     related_finder.html — automatic "See Also" cross-linking.
+     Build-time only. Explicit front-matter overrides win; then category
+     siblings; then a title-token + author + tag scoring backfill.
+     ===================================================================== */ -}}
+{{- $self := . -}}
+{{- $selfKey := lower (replaceRE "[^a-z0-9]" "" (lower $self.Title)) -}}
+{{- $stop := slice "a" "an" "and" "the" "of" "for" "in" "on" "to" "with" "by" "at" "as" "is" "are" "be" "or" "from" "into" "using" "via" "new" "not" "no" "it" "its" "we" "our" "their" "you" "your" "this" "that" "these" "those" "but" "if" "than" "then" "so" "can" "will" "would" "could" "should" "may" "might" "also" "more" "most" "some" "all" "any" "each" "every" "who" "whom" "which" "what" "when" "where" "why" "how" "about" "between" "among" "through" "over" "under" "after" "before" "upon" "across" "per" "vs" "de" "la" "les" "et" "du" -}}
+
+{{- /* tokenize self title */ -}}
+{{- $selfTokens := slice -}}
+{{- range (split (lower $self.Title) " ") }}
+  {{- $t := replaceRE "[^a-z0-9]" "" . -}}
+  {{- if and (ge (len $t) 3) (not (in $stop $t)) }}{{ $selfTokens = $selfTokens | append $t }}{{ end -}}
+{{- end -}}
+{{- $selfAuthors := $self.Params.authors | default slice -}}
+{{- $selfTags := $self.Params.tags | default slice -}}
+
+{{- /* candidate pool: all publication/talk/software pages except self */ -}}
+{{- $pool := slice -}}
+{{- range (where site.RegularPages "Section" "in" (slice "publication" "talk" "software")) }}
+  {{- if ne .File.Path $self.File.Path }}{{ $pool = $pool | append . }}{{ end -}}
+{{- end -}}
+
+{{- $scored := slice -}}
+{{- range $p := $pool }}
+  {{- $score := 0 -}}
+  {{- range (split (lower $p.Title) " ") }}
+    {{- $t := replaceRE "[^a-z0-9]" "" . -}}
+    {{- if and (ge (len $t) 3) (not (in $stop $t)) (in $selfTokens $t) }}{{ $score = add $score 2 }}{{ end -}}
+  {{- end -}}
+  {{- range ($p.Params.authors | default slice) }}{{ if in $selfAuthors . }}{{ $score = add $score 1 }}{{ end }}{{ end -}}
+  {{- range ($p.Params.tags | default slice) }}{{ if in $selfTags . }}{{ $score = add $score 2 }}{{ end }}{{ end -}}
+  {{- if gt $score 0 }}{{ $scored = $scored | append (dict "page" $p "score" $score) }}{{ end -}}
+{{- end -}}
+
+{{- /* explicit overrides */ -}}
+{{- $picked := slice -}}
+{{- $seen := slice -}}
+{{- $relAll := slice -}}
+{{- range (.Params.related_papers | default slice) }}{{ $relAll = $relAll | append (printf "publication/%s" .) }}{{ end -}}
+{{- range (.Params.related_talks | default slice) }}{{ $relAll = $relAll | append (printf "talk/%s" .) }}{{ end -}}
+{{- range (.Params.related_software | default slice) }}{{ $relAll = $relAll | append (printf "software/%s" .) }}{{ end -}}
+{{- range $relAll }}
+  {{- with site.GetPage . }}
+    {{- $k := lower (replaceRE "[^a-z0-9]" "" (lower .Title)) -}}
+    {{- if and (ne $k $selfKey) (not (in $seen $k)) }}{{ $picked = $picked | append . }}{{ $seen = $seen | append $k }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* threshold backfill, sorted by score then date */ -}}
+{{- $threshold := 4 -}}
+{{- if lt (len $picked) 3 }}{{ $threshold = 2 }}{{ end -}}
+{{- range $s := (sort $scored "score" "desc") }}
+  {{- if ge $s.score $threshold -}}
+    {{- $p := $s.page -}}
+    {{- $k := lower (replaceRE "[^a-z0-9]" "" (lower $p.Title)) -}}
+    {{- if and (ne $k $selfKey) (not (in $seen $k)) }}{{ $picked = $picked | append $p }}{{ $seen = $seen | append $k }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if gt (len $picked) 0 }}
+<section class="gk-see-also" aria-label="See also">
+  <h2>See Also</h2>
+  <ul>
+    {{- range first 8 $picked }}
+      {{- $kind := "Paper" -}}
+      {{- $pt := .Params.publication_types | default slice -}}
+      {{- if .Params.dataverse_url }}{{ $kind = "Dataset" }}{{ end -}}
+      {{- if in $pt "book" }}{{ $kind = "Book" }}{{ else if in $pt "book_chapter" }}{{ $kind = "Book" }}{{ else if in $pt "patent" }}{{ $kind = "Patent" }}{{ else if in $pt "court_brief" }}{{ $kind = "Court Brief" }}{{ else if in $pt "data" }}{{ $kind = "Dataset" }}{{ else if in $pt "presentation" }}{{ $kind = "Presentation" }}{{ else if eq .Section "talk" }}{{ $kind = "Presentation" }}{{ else if eq .Section "software" }}{{ $kind = "Software" }}{{ end -}}
+      <li><span class="gk-kind">[{{ $kind }}]</span> <a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Date }} <span class="gk-cite__meta">({{ .Format "2006" }})</span>{{ end }}</li>
+    {{- end }}
+  </ul>
+</section>
+{{- end -}}

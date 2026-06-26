@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{- $featured := .Resources.GetMatch "featured.*" -}}
+<main id="main-content" class="gk-wrap" style="max-width: 880px;">
+  <nav class="gk-crumbs" aria-label="Breadcrumb">
+    <a href="{{ "" | relURL }}">Home</a> / <a href="{{ "publication/" | relURL }}">Writings</a> / {{ .Title }}
+  </nav>
+
+  <article class="view-citation">
+    {{- with $featured }}
+      <img class="gk-featured" src="{{ .RelPermalink }}" alt="{{ $.Title }}" loading="lazy">
+    {{- end }}
+
+    <h1>{{ .Title }}</h1>
+    {{- with (.Params.authors | default slice) }}<p class="gk-cite__meta">{{ delimit . ", " }}</p>{{ end }}
+    <p class="gk-cite__meta">
+      {{- with .Date }}{{ .Format "Jan 2, 2006" }}{{ end -}}
+      {{- with .Params.publication }} &middot; <span class="gk-cite__venue">{{ . }}</span>{{ end -}}
+    </p>
+
+    {{- if .Params.related_paper }}
+      {{- with site.GetPage (printf "publication/%s" .Params.related_paper) }}
+        <p class="gk-chip" style="display:inline-block;margin:0.5rem 0;">Replication data for: <a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+      {{- end }}
+    {{- end }}
+
+    {{- with .Params.links }}
+    <div class="gk-cite__links" style="margin:1rem 0;">
+      {{- range . }}
+        <a class="gk-btn" href="{{ if hasPrefix .url "http" }}{{ .url }}{{ else }}{{ .url | relURL }}{{ end }}"{{ if hasPrefix .url "http" }} rel="noopener"{{ end }}>{{ .name }}</a>
+      {{- end }}
+    </div>
+    {{- end }}
+
+    {{- with .Params.dataverse_url }}
+    <p class="gk-chip" style="display:inline-block;">Dataset: <a href="{{ . }}" rel="noopener">{{ $.Params.dataverse_name | default "Replication data on Harvard Dataverse" }}</a></p>
+    {{- end }}
+
+    {{- with .Params.abstract }}
+    <div class="prose" style="margin-top:1.25rem;">
+      <h2>Abstract</h2>
+      <p>{{ . }}</p>
+    </div>
+    {{- end }}
+
+    {{- with .Content }}<div class="prose" style="margin-top:1rem;">{{ . }}</div>{{ end }}
+  </article>
+
+  {{ partial "related_finder.html" . }}
+</main>
+{{ end }}

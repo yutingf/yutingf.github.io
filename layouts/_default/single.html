@@ -1,0 +1,7 @@
+{{ define "main" }}
+<main id="main-content" class="gk-wrap" style="max-width: 820px;">
+  <nav class="gk-crumbs" aria-label="Breadcrumb"><a href="{{ "" | relURL }}">Home</a> / {{ .Title }}</nav>
+  <h1>{{ .Title }}</h1>
+  <div class="prose">{{ .Content }}</div>
+</main>
+{{ end }}

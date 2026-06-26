@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{- $owner := slice "Rachel Yuting Fan" "Yuting Fan" "R Yuting Fan" "RY Fan" "Y Fan" -}}
+{{- $links := index site.Data "coauthors" -}}
+{{- $names := slice -}}
+{{- range (where site.RegularPages "Section" "in" (slice "publication" "talk" "software")) }}
+  {{- range (.Params.authors | default slice) }}
+    {{- if not (in $owner .) }}{{ $names = $names | append . }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- $names = sort (uniq $names) -}}
+
+<main id="main-content" class="gk-wrap" style="max-width: 820px;">
+  <nav class="gk-crumbs" aria-label="Breadcrumb"><a href="{{ "" | relURL }}">Home</a> / People</nav>
+  <h1>{{ .Title | default "People" }}</h1>
+  <div class="prose">{{ .Content }}</div>
+
+  <ul class="pub-list" style="columns: 2; column-gap: 2rem; list-style: none; padding: 0;">
+    {{- range $names }}
+      {{- $info := index $links . -}}
+      <li style="padding:0.3rem 0; break-inside: avoid;">
+        {{- if $info }}<a href="{{ $info.url }}" rel="noopener">{{ . }}</a>{{ else }}{{ . }}{{ end -}}
+      </li>
+    {{- end }}
+  </ul>
+</main>
+{{ end }}
