@@ -21,7 +21,7 @@ markup:
 
 params:
   # Visitor analytics — paste your Cloudflare Web Analytics beacon token here once the site is live.
-  cloudflare_analytics_token: ""
+  cloudflare_analytics_token: "f4c37eaaa2024c92afd59b3bea0e1b62"
   scholar_url: "https://scholar.google.com/citations?hl=en&user=DFOTKsoAAAAJ"
   orcid_url: "https://orcid.org/0009-0003-9071-0291"
   repec_url: "https://authors.repec.org/pro/pfa757/"
