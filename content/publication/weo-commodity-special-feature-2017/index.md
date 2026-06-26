@@ -9,5 +9,3 @@ links:
   - name: "Paper (PDF)"
     url: "files/weo-commodity-2017.pdf"
 ---
-
-<!-- FLAG: confirm authorship/role on WEO special feature -->

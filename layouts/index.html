@@ -22,6 +22,8 @@
       <div class="gk-hero__actions">
         <a class="gk-btn" href="{{ "publication/" | relURL }}">Publications</a>
         {{- with site.Params.scholar_url }}<a class="gk-btn" href="{{ . }}" rel="noopener">Google Scholar</a>{{ end }}
+        {{- with site.Params.orcid_url }}<a class="gk-btn" href="{{ . }}" rel="noopener">ORCID</a>{{ end }}
+        {{- with site.Params.repec_url }}<a class="gk-btn" href="{{ . }}" rel="noopener">RePEc</a>{{ end }}
         {{- with site.Params.email }}<a class="gk-btn" href="mailto:{{ . }}">Email</a>{{ end }}
       </div>
     </div>
