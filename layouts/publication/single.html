@@ -45,9 +45,33 @@
     {{- with .Content }}<div class="prose" style="margin-top:1rem;">{{ . }}</div>{{ end }}
   </article>
 
+  {{- /* Citation in Chicago author-date style (IMF / World Bank convention):
+         first author inverted to "Last, First", others in normal order, "and" before the last, year after authors. */ -}}
+  {{- $authors := .Params.authors | default slice -}}
+  {{- $n := len $authors -}}
+  {{- $names := "" -}}
+  {{- if gt $n 0 -}}
+    {{- $first := index $authors 0 -}}
+    {{- $firstFmt := $first -}}
+    {{- $parts := split $first " " -}}
+    {{- if and (ne $first "World Bank") (gt (len $parts) 1) -}}
+      {{- $surname := index $parts (sub (len $parts) 1) -}}
+      {{- $given := delimit (first (sub (len $parts) 1) $parts) " " -}}
+      {{- $firstFmt = printf "%s, %s" $surname $given -}}
+    {{- end -}}
+    {{- if eq $n 1 -}}
+      {{- $names = $firstFmt -}}
+    {{- else if eq $n 2 -}}
+      {{- $names = printf "%s, and %s" $firstFmt (index $authors 1) -}}
+    {{- else -}}
+      {{- $middle := slice -}}
+      {{- range $i, $a := $authors -}}{{- if and (gt $i 0) (lt $i (sub $n 1)) -}}{{- $middle = $middle | append $a -}}{{- end -}}{{- end -}}
+      {{- $names = printf "%s, %s, and %s" $firstFmt (delimit $middle ", ") (index $authors (sub $n 1)) -}}
+    {{- end -}}
+  {{- end -}}
   <section class="gk-cite-box" aria-label="Suggested citation">
     <h2>Cite</h2>
-    <p class="gk-citation" id="gk-citation">{{ delimit (.Params.authors | default slice) ", " }} ({{ .Date.Format "2006" }}). {{ .Title }}.{{ with .Params.publication }} {{ . }}.{{ end }}</p>
+    <p class="gk-citation" id="gk-citation">{{ $names }}. {{ .Date.Format "2006" }}. &ldquo;{{ .Title }}.&rdquo;{{ with .Params.publication }} {{ . }}.{{ end }}</p>
     <button class="gk-chip" id="gk-copy-cite" type="button">Copy citation</button>
   </section>
 
