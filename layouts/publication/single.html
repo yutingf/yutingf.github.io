@@ -11,7 +11,16 @@
     {{- end }}
 
     <h1>{{ .Title }}</h1>
-    {{- with (.Params.authors | default slice) }}<p class="gk-cite__meta">{{ delimit . ", " }}</p>{{ end }}
+    {{- with (.Params.authors | default slice) }}
+    {{- $links := index site.Data "coauthors" -}}
+    <p class="gk-cite__meta">
+      {{- range $i, $a := . -}}
+        {{- if $i }}, {{ end -}}
+        {{- $info := index $links $a -}}
+        {{- if $info }}<a href="{{ $info.url }}" target="_blank" rel="noopener">{{ $a }}</a>{{ else }}{{ $a }}{{ end -}}
+      {{- end -}}
+    </p>
+    {{- end }}
     <p class="gk-cite__meta">
       {{- with .Date }}{{ .Format "Jan 2, 2006" }}{{ end -}}
       {{- with .Params.publication }} &middot; <span class="gk-cite__venue">{{ . }}</span>{{ end -}}
