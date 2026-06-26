@@ -62,6 +62,3 @@ menu:
     - name: Publications
       url: /publication/
       weight: 20
-    - name: People
-      url: /authors/
-      weight: 50

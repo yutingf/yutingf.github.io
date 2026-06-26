@@ -178,6 +178,7 @@
   });
   document.getElementById('pub-bibtex').addEventListener('click', function () {
     var visIdx = items.filter(function (it) { return it.style.display !== 'none'; }).map(function (it) { return +it.dataset.idx; });
+    if (!visIdx.length) return;
     var out = visIdx.map(function (i) {
       var d = data[i];
       return '@article{' + d.key.replace(/[^A-Za-z0-9]/g, '') + ',\n' +
@@ -186,10 +187,12 @@
         '  year = {' + d.year + '},\n' +
         '  journal = {' + d.venue + '}\n}';
     }).join('\n\n');
-    var blob = new Blob([out], { type: 'text/plain' });
+    var blob = new Blob([out], { type: 'application/x-bibtex' });
+    var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'citations.bib'; a.click();
-    URL.revokeObjectURL(a.href);
+    a.href = url; a.download = 'citations.bib';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
   });
 
   // init from hash
