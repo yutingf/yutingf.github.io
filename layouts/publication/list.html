@@ -23,15 +23,15 @@
 
 {{- /* Distinct tabs present, in canonical order */ -}}
 {{- $order := slice "articles" "working-papers" "reports" "briefs" "book" "presentations" "software" "data" -}}
-{{- $labels := dict "articles" "Journal Articles" "working-papers" "Working Papers" "reports" "Reports" "briefs" "Briefs & Columns" "book" "Books" "presentations" "Presentations" "software" "Software" "data" "Data" -}}
+{{- $labels := dict "articles" "Journal Articles" "working-papers" "Working Papers" "reports" "Reports" "briefs" "Briefs & Columns" "book" "Book Chapters" "presentations" "Presentations" "software" "Software" "data" "Data" -}}
 {{- $present := slice -}}
 {{- range $order }}{{ $tk := . }}{{ range $entries }}{{ if eq .tab $tk }}{{ $present = $present | append $tk }}{{ end }}{{ end }}{{ end -}}
 {{- $present = uniq $present -}}
 {{- $years := uniq (apply $entries "index" "." "year") -}}
 
 <main id="main-content" class="gk-wrap">
-  <nav class="gk-crumbs" aria-label="Breadcrumb"><a href="{{ "" | relURL }}">Home</a> / Writings</nav>
-  <h1>Writings</h1>
+  <nav class="gk-crumbs" aria-label="Breadcrumb"><a href="{{ "" | relURL }}">Home</a> / Publications</nav>
+  <h1>Publications</h1>
 
   <nav class="pub-tabs" role="tablist" aria-label="Filter by type">
     <button class="tab-btn active" data-tab="all" role="tab" aria-selected="true">All</button>
