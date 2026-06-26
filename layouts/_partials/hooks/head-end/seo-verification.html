@@ -1,0 +1,4 @@
+{{- /* Google Search Console verification — inert until params.google_site_verification is set. */ -}}
+{{- with site.Params.google_site_verification }}
+<meta name="google-site-verification" content="{{ . }}" />
+{{- end }}

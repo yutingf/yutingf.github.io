@@ -26,6 +26,11 @@ params:
   orcid_url: "https://orcid.org/0009-0003-9071-0291"
   repec_url: "https://authors.repec.org/pro/pfa757/"
   email: "yutingf@gmail.com"
+  # Paste the Google Search Console verification code (the content="..." value) here once you have it.
+  google_site_verification: ""
+  marketing:
+    seo:
+      description: "Rachel Yuting Fan is an economist working on macroeconomics, technology adoption, and development, with research on AI adoption, sovereign debt and growth, telecom liberalization, and commodity markets."
   appearance:
     theme_day: minimal
     theme_night: minimal
