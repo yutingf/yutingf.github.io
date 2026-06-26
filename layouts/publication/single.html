@@ -45,6 +45,26 @@
     {{- with .Content }}<div class="prose" style="margin-top:1rem;">{{ . }}</div>{{ end }}
   </article>
 
+  <section class="gk-cite-box" aria-label="Suggested citation">
+    <h2>Cite</h2>
+    <p class="gk-citation" id="gk-citation">{{ delimit (.Params.authors | default slice) ", " }} ({{ .Date.Format "2006" }}). {{ .Title }}.{{ with .Params.publication }} {{ . }}.{{ end }}</p>
+    <button class="gk-chip" id="gk-copy-cite" type="button">Copy citation</button>
+  </section>
+
   {{ partial "related_finder.html" . }}
 </main>
+
+<script>
+  (function () {
+    var btn = document.getElementById('gk-copy-cite'), src = document.getElementById('gk-citation');
+    if (!btn || !src) return;
+    btn.addEventListener('click', function () {
+      var text = src.textContent.trim();
+      function done() { var o = btn.textContent; btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = o; }, 1500); }
+      function fallback() { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done(); }
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); }
+      else fallback();
+    });
+  })();
+</script>
 {{ end }}

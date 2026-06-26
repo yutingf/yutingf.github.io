@@ -68,7 +68,6 @@
 
       <div class="pub-controls">
         <button class="gk-chip" id="pub-reset">Reset</button>
-        <button class="gk-chip" id="pub-bibtex">Download citations</button>
       </div>
     </aside>
 
@@ -95,15 +94,6 @@
     </div>
   </div>
 
-  {{/* Serialized data for BibTeX export */}}
-  <script type="application/json" id="pub-data">
-  [
-  {{- range $i, $e := $entries -}}
-    {{- $p := $e.page -}}
-    {{ if $i }},{{ end }}{"title": {{ $p.Title | jsonify }}, "authors": {{ ($p.Params.authors | default slice) | jsonify }}, "year": {{ $e.year | jsonify }}, "venue": {{ ($p.Params.publication | default "") | jsonify }}, "key": {{ (printf "%s%s" (path.Base (path.Dir $p.File.Path)) $e.year) | jsonify }}}
-  {{- end -}}
-  ]
-  </script>
 </main>
 
 <script>
@@ -117,7 +107,6 @@
   var listEl = document.getElementById('pub-list');
   var yearCbs = Array.prototype.slice.call(document.querySelectorAll('.year-cb'));
   var state = { tab: 'all', q: '', area: 'all', years: [] };
-  var data = JSON.parse(document.getElementById('pub-data').textContent);
 
   function apply() {
     var visible = 0;
@@ -176,25 +165,6 @@
     tabs.forEach(function (b) { var on = b.dataset.tab === 'all'; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
     sortItems('newest'); apply();
   });
-  document.getElementById('pub-bibtex').addEventListener('click', function () {
-    var visIdx = items.filter(function (it) { return it.style.display !== 'none'; }).map(function (it) { return +it.dataset.idx; });
-    if (!visIdx.length) return;
-    var out = visIdx.map(function (i) {
-      var d = data[i];
-      return '@article{' + d.key.replace(/[^A-Za-z0-9]/g, '') + ',\n' +
-        '  title = {' + d.title + '},\n' +
-        '  author = {' + (d.authors || []).join(' and ') + '},\n' +
-        '  year = {' + d.year + '},\n' +
-        '  journal = {' + d.venue + '}\n}';
-    }).join('\n\n');
-    var blob = new Blob([out], { type: 'application/x-bibtex' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url; a.download = 'citations.bib';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-  });
-
   // init from hash
   var hash = (location.hash || '').replace('#', '');
   if (hash.indexOf('area-') === 0) {
