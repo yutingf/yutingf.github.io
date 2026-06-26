@@ -23,7 +23,7 @@
 
 {{- /* Distinct tabs present, in canonical order */ -}}
 {{- $order := slice "articles" "working-papers" "reports" "briefs" "book" "presentations" "software" "data" -}}
-{{- $labels := dict "articles" "Articles" "working-papers" "Working Papers" "reports" "Reports" "briefs" "Briefs & Columns" "book" "Books" "presentations" "Presentations" "software" "Software" "data" "Data" -}}
+{{- $labels := dict "articles" "Journal Articles" "working-papers" "Working Papers" "reports" "Reports" "briefs" "Briefs & Columns" "book" "Books" "presentations" "Presentations" "software" "Software" "data" "Data" -}}
 {{- $present := slice -}}
 {{- range $order }}{{ $tk := . }}{{ range $entries }}{{ if eq .tab $tk }}{{ $present = $present | append $tk }}{{ end }}{{ end }}{{ end -}}
 {{- $present = uniq $present -}}
