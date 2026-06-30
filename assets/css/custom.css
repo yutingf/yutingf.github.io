@@ -68,9 +68,9 @@ html.dark, .dark { background: var(--color-bg) !important; color: var(--color-te
 }
 .gk-hero__body { flex: 1 1 auto; min-width: 0; }
 .gk-hero__name { font-size: 2rem; font-weight: 700; margin: 0 0 0.25rem; color: var(--color-text); }
-.gk-hero__intro { color: var(--color-text); max-width: 62ch; line-height: 1.6; margin: 0.75rem 0 0.75rem; }
+.gk-hero__intro { color: var(--color-text); max-width: 62ch; line-height: 1.6; margin: 0.75rem 0 0.75rem; font-size: 1.1rem; }
 .gk-hero__about { max-width: 62ch; margin: 0 0 1rem; }
-.gk-hero__about p { font-size: 1.05rem; line-height: 1.55; margin-bottom: 0.4rem; color: var(--color-text); }
+.gk-hero__about p { font-size: 1.1rem; line-height: 1.55; margin-bottom: 0.4rem; color: var(--color-text); }
 .gk-hero__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
 
 @media (max-width: 640px) {
