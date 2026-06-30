@@ -109,8 +109,8 @@ html.dark, .dark { background: var(--color-bg) !important; color: var(--color-te
 .gk-area > summary::-webkit-details-marker { display: none; }
 .gk-area > summary::after { content: "+"; color: var(--color-accent); font-size: 1.2rem; }
 .gk-area[open] > summary::after { content: "\2013"; }
-.gk-area__body { padding: 0.75rem 1.1rem 1rem; }
-.gk-area__blurb { margin: -0.65rem 0 0; padding: 0 1.1rem 0.85rem; color: var(--color-text-muted); font-size: 1rem; border-bottom: 1px solid var(--color-border); }
+.gk-area__body { padding: 0 1.1rem 1rem; }
+.gk-area__blurb { margin: -0.85rem 0 0; padding: 0 1.1rem 0.85rem; color: var(--color-text-muted); font-size: 1rem; border-bottom: 1px solid var(--color-border); }
 .gk-area__body .gk-cite { padding: 0.5rem 0; font-size: 1rem; }
 .gk-area__body .gk-cite__meta { font-size: 1rem; }
 
