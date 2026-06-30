@@ -41,8 +41,8 @@
         {{- $matched = uniq $matched -}}
         <details class="gk-area"{{ if eq $i 0 }} open{{ end }}>
           <summary>{{ $area.name }}</summary>
+          {{- with $area.blurb }}<p class="gk-area__blurb">{{ . }}</p>{{ end }}
           <div class="gk-area__body">
-            {{- with $area.blurb }}<p class="gk-area__blurb">{{ . }}</p>{{ end }}
             {{- if gt (len $matched) 0 }}
               {{- range first 5 (sort $matched "Date" "desc") }}
                 <div class="gk-cite">
