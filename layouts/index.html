@@ -42,7 +42,7 @@
         <details class="gk-area"{{ if eq $i 0 }} open{{ end }}>
           <summary>{{ $area.name }}</summary>
           <div class="gk-area__body">
-            {{- with $area.blurb }}<p class="gk-cite__meta">{{ . }}</p>{{ end }}
+            {{- with $area.blurb }}<p class="gk-area__blurb">{{ . }}</p>{{ end }}
             {{- if gt (len $matched) 0 }}
               {{- range first 5 (sort $matched "Date" "desc") }}
                 <div class="gk-cite">
