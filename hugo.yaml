@@ -10,7 +10,14 @@ module:
     - path: github.com/HugoBlox/hugo-blox-builder/modules/blox-tailwind
 
 outputs:
-  home: [HTML, RSS, JSON]
+  home: [HTML, RSS, JSON, llms]
+
+# /llms.txt — markdown site summary for AI answer engines (llmstxt.org)
+outputFormats:
+  llms:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
 
 markup:
   goldmark:

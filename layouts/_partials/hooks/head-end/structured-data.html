@@ -13,7 +13,12 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Rachel Yuting Fan",
+  "givenName": "Rachel Yuting",
+  "familyName": "Fan",
+  "alternateName": ["Yuting Fan", "Rachel Fan"],
   "url": {{ site.BaseURL }},
+  "image": {{ "images/profile.jpg" | absURL }},
+  "email": {{ printf "mailto:%s" site.Params.email }},
   "jobTitle": "Economist",
   "knowsAbout": [{{ range $i, $k := $topics }}{{ if $i }}, {{ end }}{{ $k }}{{ end }}],
   "sameAs": [{{ range $i, $u := $sameAs }}{{ if $i }}, {{ end }}{{ $u }}{{ end }}]
@@ -23,6 +28,8 @@
 
 {{- if and .IsPage (eq .Section "publication") -}}
   {{- $authors := .Params.authors | default slice -}}
+  {{- $ext := slice -}}
+  {{- range .Params.links }}{{ if hasPrefix .url "http" }}{{ $ext = $ext | append .url }}{{ end }}{{ end -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,9 +38,21 @@
   "name": {{ .Title }},
   "datePublished": {{ .Date.Format "2006-01-02" }},
   "url": {{ .Permalink }},
-  "author": [{{ range $i, $a := $authors }}{{ if $i }}, {{ end }}{"@type": "Person", "name": {{ $a }}}{{ end }}]{{ with .Params.publication }},
-  "isPartOf": {{ . }}{{ end }}{{ with .Params.abstract }},
+  "author": [{{ range $i, $a := $authors }}{{ if $i }}, {{ end }}{"@type": "Person", "name": {{ $a }}{{ if eq $a "Rachel Yuting Fan" }}, "url": {{ site.BaseURL }}{{ end }}}{{ end }}]{{ with .Params.publication }},
+  "isPartOf": {{ . }}{{ end }}{{ if $ext }},
+  "sameAs": [{{ range $i, $u := $ext }}{{ if $i }}, {{ end }}{{ $u }}{{ end }}]{{ end }}{{ with .Params.abstract }},
   "abstract": {{ . }}{{ end }}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": {{ site.BaseURL }}},
+    {"@type": "ListItem", "position": 2, "name": "Publications", "item": {{ "publication/" | absURL }}},
+    {"@type": "ListItem", "position": 3, "name": {{ .Title }}}
+  ]
 }
 </script>
 {{- end -}}

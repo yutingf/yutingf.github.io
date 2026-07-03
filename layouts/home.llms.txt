@@ -1,0 +1,32 @@
+{{- /* /llms.txt per llmstxt.org: a markdown map of the site for AI answer engines.
+       Grouped like the Publications tabs; regenerates on every build. */ -}}
+# Rachel Yuting Fan
+
+> {{ site.Params.marketing.seo.description }}
+
+Personal academic website of Rachel Yuting Fan (also published as Yuting Fan), economist. Each publication page below carries the full abstract, author list, venue, and a suggested citation; many include a full-text PDF.
+
+- [Publications]({{ "publication/" | absURL }}): all journal articles, working papers, reports, book chapters, and policy briefs
+- [Google Scholar]({{ site.Params.scholar_url }})
+- [ORCID]({{ site.Params.orcid_url }})
+- [RePEc]({{ site.Params.repec_url }})
+- Email: {{ site.Params.email }}
+{{ $pubs := where site.RegularPages "Section" "publication" }}
+{{- $groups := slice
+  (dict "title" "Journal Articles" "types" (slice "journal_article"))
+  (dict "title" "Working Papers" "types" (slice "working_paper"))
+  (dict "title" "Reports" "types" (slice "report"))
+  (dict "title" "Book Chapters" "types" (slice "book" "book_chapter"))
+  (dict "title" "Briefs & Columns" "types" (slice "policy_brief"))
+-}}
+{{- range $groups }}
+{{- $g := . }}
+{{- $items := where $pubs "Params.publication_types" "intersect" $g.types }}
+{{- if $items }}
+
+## {{ $g.title }}
+{{ range $items.ByDate.Reverse }}
+- [{{ .Title }}]({{ .Permalink }}): {{ delimit (.Params.authors | default slice) ", " }}{{ with .Params.publication }}. {{ . }}{{ end }}{{ if not (strings.Contains (.Params.publication | default "") (.Date.Format "2006")) }} ({{ .Date.Format "2006" }}){{ end }}
+{{- end }}
+{{- end }}
+{{- end }}
