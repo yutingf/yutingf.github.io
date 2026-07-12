@@ -1,6 +1,6 @@
 ---
 title: "How Is AI Adopted Across Countries and Occupations? Early Evidence from One Million Usage Conversations in Over 100 Countries"
-date: 2026-02-01
+date: 2026-06-01
 authors: ["Rachel Yuting Fan"]
 publication_types: ["working_paper"]
 publication: "SSRN Working Paper, 2026"
