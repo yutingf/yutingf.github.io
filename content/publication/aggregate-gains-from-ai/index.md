@@ -11,4 +11,6 @@ links:
     url: "files/ai-gains-distribution.pdf"
   - name: "Publisher's Version"
     url: "https://doi.org/10.5089/9798229051279.001"
+  - name: "VoxEU"
+    url: "https://cepr.org/voxeu/columns/ais-gains-are-large-and-rising-unevenly-shared"
 ---
