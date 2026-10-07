@@ -8,7 +8,5 @@ abstract: "The Middle East, North Africa, Afghanistan, and Pakistan (MENAAP) reg
 tags: ["artificial intelligence", "growth", "macroeconomics", "conflict", "mena", "development"]
 links:
   - name: "World Bank"
-    url: "https://www.worldbank.org/en/region/mena/publication/middle-east-north-africa-afghanistan-and-pakistan-economic-update"
-  - name: "Full Report"
     url: "https://hdl.handle.net/10986/45624"
 ---

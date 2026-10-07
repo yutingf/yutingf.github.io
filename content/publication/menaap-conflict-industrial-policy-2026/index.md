@@ -8,5 +8,5 @@ abstract: "The Middle East, North Africa, Afghanistan, and Pakistan (MENAAP) reg
 tags: ["mena", "conflict", "industrial policy", "development", "growth"]
 links:
   - name: "World Bank"
-    url: "https://www.worldbank.org/en/region/mena/publication/middle-east-north-africa-afghanistan-and-pakistan-economic-update"
+    url: "https://hdl.handle.net/10986/44527"
 ---
