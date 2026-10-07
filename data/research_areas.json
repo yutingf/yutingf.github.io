@@ -7,12 +7,6 @@
       "tags": ["artificial intelligence", "ai adoption", "technology adoption", "innovation", "5g", "telecom", "digital", "automation"]
     },
     {
-      "name": "Macroeconomics & Growth",
-      "key": "macro",
-      "blurb": "Growth, debt, and macroeconomic resilience in the face of shocks, with a focus on the Middle East and North Africa.",
-      "tags": ["growth", "debt", "macroeconomics", "business cycles", "fiscal policy", "forecasting", "calamities"]
-    },
-    {
       "name": "Development Economics",
       "key": "development",
       "blurb": "Structural transformation, trade, and competition.",
@@ -23,6 +17,12 @@
       "key": "energy",
       "blurb": "Oil and commodity markets, energy transition, and subsidy reform.",
       "tags": ["energy", "oil", "commodities", "climate", "subsidies", "natural gas"]
+    },
+    {
+      "name": "Macroeconomics & Growth",
+      "key": "macro",
+      "blurb": "Growth, debt, and macroeconomic resilience in the face of shocks, with a focus on the Middle East and North Africa.",
+      "tags": ["growth", "debt", "macroeconomics", "business cycles", "fiscal policy", "forecasting", "calamities"]
     }
   ]
 }
