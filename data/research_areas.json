@@ -9,13 +9,13 @@
     {
       "name": "Macroeconomics & Growth",
       "key": "macro",
-      "blurb": "Growth, debt, and macroeconomic resilience in the face of shocks.",
+      "blurb": "Growth, debt, and macroeconomic resilience in the face of shocks, with a focus on the Middle East and North Africa.",
       "tags": ["growth", "debt", "macroeconomics", "business cycles", "fiscal policy", "forecasting", "calamities"]
     },
     {
       "name": "Development Economics",
       "key": "development",
-      "blurb": "Structural transformation, trade, and competition, with a focus on the Middle East and North Africa.",
+      "blurb": "Structural transformation, trade, and competition.",
       "tags": ["development", "mena", "middle east and north africa", "trade", "competition", "inequality", "labor"]
     },
     {
